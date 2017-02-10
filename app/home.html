@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Compiler Construction</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/ct-navbar.css">
+    <link rel="stylesheet" href="styles/custom.css">
+    <link rel="stylesheet" href="styles/pe-icon-7-stroke.css">
+    <link rel=stylesheet href="styles/codemirror.css">
+    <link rel=stylesheet href="styles/docs.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">    
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <nav class="navbar navbar-ct-blue" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand navbar-brand-logo">
+                    <div class="brand">Compiler Construction</div>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                      <li>
+                        <a href="javascript:void(0)" onclick="goback()">
+                            <i class="pe-7s-angle-left"></i>
+                            <div>Undo</div>                            
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="javascript:void(0)" onclick="redo()">
+                            <i class="pe-7s-angle-right"></i>
+                            <div>Redo</div>                            
+                        </a>
+                    </li> 
+                    <li>
+                        <a type="file" href="javascript:void(0)">
+                            <label class="pe-7s-upload" for="fileUpload"></label>
+                            <input type="file" accept="text/plain" id="fileUpload">
+                            <div>File Upload</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="newFile()">
+                            <i class="pe-7s-file"></i>
+                            <div>New File</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="pe-7s-diskette"></i>
+                            <div>Save File</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="main()">
+                            <i class="pe-7s-play"></i>
+                            <div>Run Program</div>                            
+                        </a>
+                    </li>                      
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--  end navbar -->
+    <div class="container-fluid">
+        <div class="col-md-6 col-sm-12">
+        <form style="position: relative; margin-top: .5em;">
+            <textarea id="demotext">
+<!-- Create a simple CodeMirror instance -->
+<link rel="stylesheet" href="lib/codemirror.css">
+<script src="lib/codemirror.js"></script>
+<script>
+  var editor = CodeMirror.fromTextArea(myTextarea, {
+    lineNumbers: true
+  });
+</script>
+            </textarea>
+        </form>
+        </div>
+        <div class="col-md-5 col-sm-12" id="results"></div>
+        <div class="col-md-12" id="console"></div>
+    </div>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/tether/dist/js/tether.js"></script>
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+  
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <script src="https://codemirror.net/lib/codemirror.js"></script>
+    <script src="scripts/ct-navbar.js"></script>
+    <script src="scripts/virtualMachine.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>

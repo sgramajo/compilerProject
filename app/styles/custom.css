@@ -1,0 +1,53 @@
+﻿body{
+    font-family: 'Rubik', sans-serif;
+    padding-bottom: 0 !important;
+}
+.title{
+    margin-top: 1.5em; 
+}
+label {
+   cursor: pointer;
+   /* Style as you please, it will become the visible UI component. */
+}
+.header {
+    border-bottom: 1px solid rgba(22,22,22,1); 
+}
+
+#fileUpload{
+   opacity: 0;
+   position: absolute;
+   z-index: -1;
+}
+.navbar{
+    margin: 0; 
+    border-radius: 0; 
+}
+#outputSection{
+    background-color:rgba(30, 30, 30, 1); 
+    height: 36.4%;
+}
+div.topSection{
+    color: white; 
+    background: rgba(52, 172, 220, 0.98); 
+    padding: 0.4em 1em;
+}
+.CodeMirror { 
+    height: auto;
+    border: 1px solid #ddd; 
+}
+.CodeMirror pre { 
+    padding-left: 7px; line-height: 1.25; 
+}
+#results{
+    border: 1px solid #ddd; 
+    height: 300px;
+    margin-top: .5em;
+    overflow-y: auto; 
+}
+#console{
+    border: 1px solid #ddd; 
+    height: 150px;
+    margin-top: .5em;
+    overflow-y: auto; 
+    margin-bottom: 10px; -moz-animation: 
+}
