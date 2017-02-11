@@ -49,5 +49,18 @@ div.topSection{
     height: 150px;
     margin-top: .5em;
     overflow-y: auto; 
-    margin-bottom: 10px; -moz-animation: 
+    margin-bottom: 10px; 
+}
+.caret{
+    border-top: 4px solid white; 
+}
+.btn-group.open .dropdown-toggle{
+    box-shadow: none;
+}
+#addText{
+    background: transparent;
+    border: none; 
+}
+input:focus {
+    outline: transparent auto 5px;
 }

@@ -1,5 +1,4 @@
 // bower:scss
-@import "bower_components/bootstrap/scss/bootstrap.scss";
 // endbower
 
 .browserupgrade {
@@ -88,4 +87,27 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+/* Cursor for Console */
+#console > span:last-child:after {
+	content:"_";
+	opacity: 0;
+	animation: cursor 1s infinite;
+}
+@keyframes cursor {
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
