@@ -40,14 +40,15 @@ div.topSection{
 }
 #results{
     border: 1px solid #ddd; 
-    height: 300px;
-    margin-top: .5em;
+}
+.resultsSections{
+    height: 300px; 
     overflow-y: auto; 
 }
 #console{
     border: 1px solid #ddd; 
     height: 150px;
-    margin-top: .5em;
+    margin-top: 1em;
     overflow-y: auto; 
     margin-bottom: 10px; 
 }
