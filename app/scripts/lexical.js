@@ -72,7 +72,6 @@ function main_Lexical()
 		//-------------------------------------------------------------------------------------------------
 		else if (isalpha(temp)) {
 			array_charact = []; 
-			console.log("Found Alphabet"); 
 			i = 0;
 			while (!(ispunct(temp)) && !(isspace(temp)) && !feof(temp) && temp != '\n' && !allowBreak){
 				if (i > CHARAC_SIZE){
@@ -98,9 +97,9 @@ function main_Lexical()
 				text = temp + text; 
 			}
 			token = find_token(array_charact);
-			$(lexemeTable).append(array_charact.join("") + "\t " + token + "\n");
+			$(lexemeTable).append(array_charact.join("").replace(/\s/g, '') + "\t " + token + "\n");
 			if (token == 2){
-				lexicalList = lexicalList + token + " " + array_charact.join("") + " ";
+				lexicalList = lexicalList + token + " " + array_charact.join("").replace(/\s/g, '') + " ";
 			}
 			else{
 				lexicalList = lexicalList + token + " ";
@@ -110,13 +109,11 @@ function main_Lexical()
 		//Check here for punctuation
 		//--------------------------------------------------------------------------------------------
 		else if (ispunct(temp))	{
-			console.log("Found Punctuation"); 
 			token = find_symbol(temp);
 			if (token == 0)	{//then the char was ':', therefore it needs to check next symbol to
 				//see whether it is a '='
 				temp = text.charAt(0);
 				text = text.slice(1, text.length);
-				console.log("Line 115/t/tTemp = " + temp); 
 				if (temp == '='){   //20 is the default token for ':='
 					$(lexemeTable).append(":=\t 20\n");
 					lexicalList = lexicalList + "20 ";
@@ -200,7 +197,7 @@ function main_Lexical()
 	}
 	$(tokens).append(lexicalList); 
 	//Now Call the Parser
-	//main_Parser(); 
+	main_Parser(); 
 }
 function find_symbol(symbol)
 {
@@ -269,52 +266,52 @@ function find_symbol(symbol)
 function find_token(array_charact)
 {
 	var token;
-
-	if (array_charact.join("") == "var"){
+	var tempArray = array_charact.join("").replace(/\s/g, ''); 
+	if (tempArray == "var"){
 		token = 29;
 	}
-	else if (array_charact.join("") == "const"){
+	else if (tempArray == "const"){
 		token = 28;
 	}
-	else if (array_charact.join("") == "procedure"){
+	else if (tempArray == "procedure"){
 		token = 30;
 	}
-	else if (array_charact.join("") == "call"){
+	else if (tempArray == "call"){
 		token = 27;
 	}
-	else if (array_charact.join("") == "begin"){
+	else if (tempArray == "begin"){
 		token = 21;
 	}
-	else if (array_charact.join("") == "end"){
+	else if (tempArray == "end"){
 		token = 22;
 	}
-	else if (array_charact.join("") == "if"){
+	else if (tempArray == "if"){
 		token = 23;
 	}
-	else if (array_charact.join("") == "then"){
+	else if (tempArray == "then"){
 		token = 24;
 	}
-	else if (array_charact.join("") == "else"){
+	else if (tempArray == "else"){
 		token = 33;
 	}
-	else if (array_charact.join("") == "while"){
+	else if (tempArray == "while"){
 		token = 25;
 	}
-	else if (array_charact.join("") == "do"){
+	else if (tempArray == "do"){
 		token = 26;
 	}
-	else if (array_charact.join("") == "read"){
+	else if (tempArray == "read"){
 		token = 32;
 	}
-	else if (array_charact.join("") == "write"){
+	else if (tempArray == "write"){
 		token = 31;
 	}
-	else if (array_charact.join("") == "odd"){
+	else if (tempArray == "odd"){
 		token = 8;
 	}
 	else{
 		token = 2;
 	}
-
+	console.log("Looking through the strings array is " + tempArray + " and token is "+ token); 
 	return token;
 }//end of find_token function

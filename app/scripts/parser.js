@@ -1,14 +1,8 @@
-/*
-    Stacy Gramajo
-    Homework 3: Parser
-    March 30, 2017
-*/
-
 //Constants they were defined in the requirements
 const MAX_SYMBOL_TABLE_SIZE = 100; 
 
-var symbol_table = [MAX_SYMBOL_TABLE_SIZE];
-var code = [MAX_CODE_LENGTH];
+var symbol_table = [];
+var code = [];
 var stack_size, token = 0, numVariables = 0;
 var cx = 0;  //code index1
 var lexical; 
@@ -17,10 +11,23 @@ var index1 = 1, level = -1, address = 4;
 
 function main_Parser(){
     lexical = lexicalList.split(" "); 
+	createArrays(); 
+	console.log("Creating Arrays"); 
 	program();
+	printCode(); 
 	addToConsole("No errors, program is syntactically correct.\n");
 	return;
 }//end of main function
+
+function createArrays(){
+	var instruction = {op: 0, l: 0, m:0};
+	var symbolItem = { kind: 0, name: "", val: 0, level: 0, addr: 0 }; 
+	var i; 
+	for(i = 0; i < MAX_CODE_LENGTH; i++)
+		code.push(instruction); 
+	for(i = 0; i < MAX_SYMBOL_TABLE_SIZE; i++)
+		symbol_table.push(symbolItem);
+}//end of createArrays
 
 function error(stmt){
     addToConsole(stmt); 
@@ -39,6 +46,14 @@ function program(){
 	if (token != 19) //periodsym = 19
 		error("Error: Period expected.\n");
 }//end of program function
+
+function printCode(){
+    var i;
+	for (i = 0; i < cx; i++)
+		$("#mCode").append(code[i].op + " " + code[i].l + " " + code[i].m + "\n");
+	console.log("cx was " + cx);
+	console.log(code);  
+}//end of printCode function
 
 function block()
 {
@@ -220,11 +235,13 @@ function statement(){
 	{
         get_token(); 
 
+		console.log(token); 
 		var k = findsym(token);
 		if (k == -1)
 			error("Error: Undeclared identifier.\n");
-
-		if (symbolkind(k) != 2) //variable == 2
+		
+		console.log("Symbol_table - k: " + k); 
+		if (symbol_table[k].kind != 2) //variable == 2
 			error("Error: Assignment to constant or procedure is not allowed.\n");
 
 		get_token();
@@ -233,7 +250,7 @@ function statement(){
 
 		get_token();
 		expression();
-		emit(4, level - symbollevel(k), symboladdress(k)); //STO = 4
+		emit(4, level - symbol_table[k].level, symbol_table[k].addr); //STO = 4
 	}
 	else if (token == 21) //beginsym = 21
 	{
@@ -287,8 +304,8 @@ function statement(){
 		get_token();
 		parameter_list();
 
-		if (symbolkind(k) == 3)//CAL = 5
-			emit(5, level - symbollevel(k), symboladdress(k));
+		if (symbol_table[k].kind == 3)//CAL = 5
+			emit(5, level - symbol_table[k].level, symbol_table[k].addr);
 		else
 			error("Error: Call must be followed by a procedure identifier.\n");
 
@@ -318,12 +335,12 @@ function statement(){
 		var k = findsym(token);
 		if (k == -1)
 			error("Error: Undeclared Identifier.\n");
-		if (symbolkind(k) == 1)
-			emit(3, level - symbollevel(k), symbolval(k));
+		if (symbol_table[k].kind == 1)
+			emit(3, level - symbol_table[k].level, symbol_table[k].val);
 		else
-			emit(3, level - symbollevel(k), symboladdress(k)); //LOD == 3
+			emit(3, level - symbol_table[k].level, symbol_table[k].addr); //LOD == 3
 
-		emit(9, symbollevel(k), 1); //SIO = 9
+		emit(9, symbol_table[k].level, 1); //SIO = 9
 		get_token();
 	}
 	else if (token == 32)//readsym = 32
@@ -338,11 +355,11 @@ function statement(){
 		if (k == -1)
 			error("Error: Undeclared Identifier.\n");
 
-		if (symbolkind(k) == 1) //constant == 1
+		if (symbol_table[k].kind == 1) //constant == 1
 			error("Error Found --- Exit Immediately");
 
 		emit(10, 0, 2); //SIO = 10
-		emit(4, level - symbollevel(k), symboladdress(k)); //LOD == 3
+		emit(4, level - symbol_table[k].level, symbol_table[k].addr); //LOD == 3
 		get_token();
 	}
 }//end of statement function
@@ -397,10 +414,10 @@ function factor(){
 		var k = findsym(token);
 		if (k == -1)
 			error("Error: Undeclared Identifier.\n");
-		if (symbolkind(k) == 2) //variable == 2
-			emit(3, level - symbollevel(k), symboladdress(k)); //LOD == 3
-		else if (symbolkind(k) == 1) //constant ==1
-			emit(1, 0, symbolval(k)); //LIT == 1
+		if (symbol_table[k].kind == 2) //variable == 2
+			emit(3, level - symbol_table[k].level, symbol_table[k].addr); //LOD == 3
+		else if (symbol_table[k].kind == 1) //constant ==1
+			emit(1, 0, symbol_table[k].val); //LIT == 1
 		else
 			error("Error Found --- Exit Immediately");
 
@@ -436,8 +453,8 @@ function factor(){
 		get_token();
 		parameter_list();
 
-		if (symbolkind(k) == 3)//CAL = 5
-			emit(5, level - symbollevel(k), symboladdress(k));
+		if (symbol_table[k].kind == 3)//CAL = 5
+			emit(5, level - symbol_table[k].level, symbol_table[k].addr);
 		else
 			error("Error: Call must be followed by a procedure identifier.\n");
 
@@ -470,22 +487,13 @@ function condition(){
 }//end of condition function
 
 function enter_symbol(kind, array, temp, addr){
-	symbol_table[index1].kind = kind;
-	var i = 0;
-	while (array[i] != '\0'){
-		symbol_table[index1].name[i] = array[i];
-		i++;
-	}//end of while loop
-
-	symbol_table[index1].name[i] = '\0';
-
+	var symbolTry; 
 	if (kind == 1)//then it is a const
-		symbol_table[index1].val = temp;
+		symbolTry = {kind: kind, name: array, val: temp, level: 0, addr: 0}; 
 	else
-	{
-		symbol_table[index1].level = temp;
-		symbol_table[index1].addr = addr;
-	}
+		symbolTry = {kind: kind, name: array, val: 0, level: temp, addr: addr}; 
+	
+	symbol_table[index1] = symbolTry; 
 	index1++;
 }//end of enter_symbol function
 
@@ -493,9 +501,8 @@ function emit(op, l, m){
 	if (cx > MAX_STACK_HEIGHT)
 		error("Error: There was a stack overflow.\n");
 	else{
-		code[cx].op = op;
-		code[cx].l = l;
-		code[cx].m = m;
+		var codeItem = {op: op, l:l, m:m};
+		code[cx] = codeItem;
 		updateStackSize(op, l, m);
 		cx++;
 	}
@@ -508,8 +515,7 @@ function updateStackSize(op, l, m){
 		stack_size--;
 	else if (op == 6)//INC
 		stack_size += m;
-	else if (op == 2)//OPR
-	{
+	else if (op == 2){//OPR
 		if (m == 0)//RET
 			stack_size = 0;
 		else if (m != 1 || m != 6)//NEG and ODD
@@ -518,46 +524,28 @@ function updateStackSize(op, l, m){
 }
 function findsym(array){
 	var temp1 = index1 - 1, found = -1;
-	while (temp1 != 0){
-		if (strcmp(symbol_table[temp1].name, array) == 0){
+	while (temp1 > 0){
+		console.log("Temp1 is " + temp1 + " Checking here Name: " + symbol_table[temp1].name + " == " + array); 
+		if (symbol_table[temp1].name == array){
 			found = temp1;
 			break;
 		}
+		console.log("Next"); 
 		temp1--;
 	}
 	return found;
 }
 
-function symbolkind(position){
-	return symbol_table[position].kind;
-}
-
-function symbollevel(position){
-	return symbol_table[position].level;
-}
-
-function symboladdress(position){
-	return symbol_table[position].addr;
-}
-
-function symbolval(position){
-	return symbol_table[position].val;
-}
-
-function symbolName(position){
-	return symbol_table[position].name;
-}
-
-function find_symbol_type(symbol){
-	if (symbol == 9)
+function find_symbol_type(symbolItem){
+	if (symbolItem == 9)
 		return 8; //EQL == 8
-	else if (symbol == 10)
+	else if (symbolItem == 10)
 		return 9; //NEQ == 9 '!='
-	else if (symbol == 11)
+	else if (symbolItem == 11)
 		return 10; //LSS == 10 '<'
-	else if (symbol == 12)
+	else if (symbolItem == 12)
 		return 11; //leq "<="
-	else if (symbol == 13)
+	else if (symbolItem == 13)
 		return 12;
 	else
 		return 13;
