@@ -1,0 +1,125 @@
+<h2>Statement</h2>	
+<p>A statement is to make a declaration or make a clear expression in paper. In the similar manner, a Statement in the PL/0 language, allows one to declare different actions he/she will like the code to accomplish. A Statement grammar is where one can see the equations, variables, constants, and procedures connecting altogether.</p> 
+
+<h3>Becomes</h3>
+<div>
+    <p>Recall that variables were never assigned a value when they are declared. The Become grammar in the PL/0 language allows one to map the variable to a value. Hence, a Become Statement is an identifier (that has been declared previously) that is followed by the equal sign and an Expression.</p> 
+    <p>Examples:</p>
+
+    Const rice := 5, beans := 7; 
+    var food; 
+    procedure meal; 
+    food := rice + beans; 
+    .
+</div> 
+
+<h3>Call</h3>
+<div>
+    <p>Previously, the procedure grammar was explained and how more than one procedure can be made in the PL/0 machine. At times, a function would like to access another function or itself (recursively). In order to do this, one can use the Call grammar in the PL/0 language. To do so, one only needs to write ‘call’ and the procedure name.</p> 
+    For instance: 
+    var f, n;
+    procedure fact;
+        var ans1;
+        begin
+            ans1:=n;
+            n:= n-1;
+            if n = 0 then f := 1;
+            if n > 0 then call fact;
+            f:=f*ans1;
+        end;
+    begin
+        n:=3;
+        call fact;
+        write f;
+    end.
+</div>
+<h3>Read</h3>
+<div>
+    <p>If there is a word that would like to be scanned into the program, then the Read grammar is used. Simply have the word ‘read’ first then an identifier following it.</p>
+</div> 
+
+<h3>Write</h3>
+<div>
+    When there is a number that one will like to print it off to the screen, the write statement is used. The write grammar only needs the word ‘write’ and an identifier that has already been defined previously. 
+    For example:
+    var  x,y,z,v,w;
+    procedure a;
+    var x,y,u,v;
+    begin
+    x:=1; y:=2; z:=3; v:=4; w:=5;
+    x:=v+w;
+    write z;
+    end.
+</div>
+
+<h3>If- then</h3>
+<div>
+    <p>There are times when one will like an action to be taken if a condition is met. A real life example is</p> 
+-	If Suzy is cold, then she will probably wear a sweater. 
+Although this is not PL/0 language, this example was given to better describe what an ‘if’ and ‘then’ statement can do. In addition, these types of statements have an ‘else’ tag after which signifies that either one condition or the other should be done. Using the same example, one can implement the if-then-else statement.
+-	If Suzy is cold- then she will probably wear a sweater – else she will buy a warm drink. 
+Now, if one needed to implement this to the PL/0 language, note that ‘if’ is followed by a Condition. When the Condition is complete, then one will have to add the ‘then’ followed by the Statement with a semicolon. As mentioned before, ‘else’ is not required. If it is implemented, then ‘else’ will be followed by another Statement and the only semicolon that should be present in this part of the grammar should be after the else-statement. 
+The following are examples using the If-then-else statement: 
+Const stars := 12; 
+var sky; 
+procedure night; 
+sky := stars + 1; 
+if sky > 15 then
+sky := sky + 5; 
+.
+
+Const flowers := 7; 
+var meadow;
+meadow := 2; 
+if meadow < 8 then
+meadow := flowers + 4
+else
+meadow := flowers; 
+. 
+</div>
+
+<h3>While – do</h3>
+<div>
+    <p>A while-do statement is very similar to an if-then statement; however, the while-do will allow one to continue on a loop until the condition that was first stated is no longer true. For instance, while the food is still not cooked, continue cooking it.</p> 
+In this Statement, a ‘while’ is first added followed by a condition, then a ‘do’ and finally a Statement. 
+An example using while-do and implementing it to the PL/0 language.
+ 
+Const hours := 8; 
+var piano, guitar, violin; 
+procedure  practice; 
+violin := 2; 
+while violin < hours do
+violin := violin + 3; 
+.
+Const x := 5, y := 8; 
+var w, v, z; 
+procedure example; 
+v := 2; 
+while v <= 5 do 
+v := v + 1; 
+w := y + w; 
+.
+ 
+<h3>Begin- End</h3>
+<div>
+    <p>A begin and end statement are used to write more than one statement in or out of a procedure. If one wanted to set all the variables to a certain number after declaring them, begin-end statement will let him/her do just that.</p> 
+    <p>In this statement, it first starts with ‘begin’ followed by a statement that can continue on following by another statement if these statements are separated with a semicolon.</p> 
+    <p>An example of all of the grammar put together is as follows:</p> 
+    Const test = 3; /*const example */
+    var f, n;
+    procedure fact;
+        var ans1;
+        begin
+            ans1:=n;
+            n:= n-1;
+            if n = 0 then f := 1;
+            if n > 0 then call fact;
+            f:=f*ans1;
+        end;
+    begin
+        n:=3;
+        call fact;
+        write f;
+    end.
+    <p>Side Note: As shown above, comments can be implemented in the PL/0 language. Simply write ‘/*’ followed by the comments and ending it with ‘*/’.</p> 
+</div>

@@ -5,7 +5,7 @@
     <meta name="description" content="Compiler Construction">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Compiler Construction</title>
-
+    <link rel="icon" href="favicon2.ico" type="image/x-icon" />
     <!-- Place favicon.ico in the root directory -->
 
     <!-- build:css styles/vendor.css -->
@@ -68,8 +68,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="pe-7s-diskette"></i>
+                        <a href="javascript:void(0)" onclick="saveFile()">
+                            <label class="pe-7s-diskette"></label>
                             <div>Save File</div>
                         </a>
                     </li>
@@ -77,6 +77,12 @@
                         <a href="javascript:void(0)" onclick="main_Lexical()">
                             <i class="pe-7s-play"></i>
                             <div>Run Program</div>                            
+                        </a>
+                    </li>
+                   <li>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
+                            <i class="pe-7s-help1"></i>
+                            <div>Tutorial</div>                            
                         </a>
                     </li>                      
                 </ul>
@@ -133,27 +139,90 @@ end.
                         <span class="text">Mcode</span>
                     </a>
                 </li>
+                <li role="presentation">
+                    <a href="#stackPic" role="tab" id="stackPic-tab" data-toggle="tab" aria-controls="stackPic">
+                        <span class="text">Stack Review</span>
+                    </a>
+                </li>
             </ul>
             <div id="myTabContent" class="tab-content">
                 <pre role="tabpanel" class="tab-pane fade in active resultsSections" id="home" aria-labelledby="home-tab"></pre>
                 <pre role="tabpanel" class="tab-pane fade resultsSections" id="tokens" aria-labelledby="tokens-tab"></pre>
                 <pre role="tabpanel" class="tab-pane fade resultsSections" id="results" aria-labelledby="results-tab"></pre>
                 <pre role="tabpanel" class="tab-pane fade resultsSections" id="mCode" aria-labelledby="mCode-tab"></pre>
+                <pre role="tabpanel" class="tab-pane fade resultsSections" id="stackPic" aria-labelledby="stackPic-tab"></pre>                
             </div>
         </div>
         <pre class="col-md-12" id="console"></pre>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">PL0 Language Tutorial</h4>
+                </div>
+                <div class="modal-body"><!--Table of contents to the left -->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a href="javascript:void(0)" onclick="load_more('introduction')">Introduction</a> <br />
+                            <a href="javascript:void(0)" onclick="load_more('numbers')">Numbers, Symbols, and Letters</a>
+                            <ol type="a">
+                                <li>Numbers</li>
+                                <li>Symbols</li>
+                                <li>Letters</li>
+                                <li>Summary</li>
+                            </ol>
+                            <a href="javascript:void(0)" onclick="load_more('constants')">Constants, Variables, and Procedures</a>
+                            <ol type="a">
+                                <li>Constants</li>
+                                <li>Variables</li>
+                                <li>Procedures</li>
+                            </ol>
+                            <a href="javascript:void(0)" onclick="load_more('equations')">Equations: Factor, Term, and Expression</a>
+                            <ol type="a">
+                                <li>Factor</li>
+                                <li>Term</li>
+                                <li>Expression</li>
+                                <li>Condition</li>
+                            </ol>
+                            <a href="javascript:void(0)" onclick="load_more('statements')">Statement</a>
+                            <ol type="a">
+                                <li>Becomes</li>
+                                <li>Call</li>
+                                <li>Read</li>
+                                <li>Write</li>
+                                <li>If- then</li>
+                                <li>While – do</li>
+                                <li>Begin – End</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-7" id="addTutorial" style="height: 600px"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/modernizr/modernizr.js"></script>
+    <script src="/bower_components/bootstrap/js/tab.js"></script>
+    <script src="/bower_components/bootstrap/js/modal.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
   
     <!-- build:js scripts/main.js -->
     <!-- Delete the next line later!!!!!! --> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/js/tab.js"></script>
+    <script src="../bower_components/bootstrap/js/modal.js"></script>
+
 
     <script src="scripts/main.js"></script>
     <script src="scripts/commonFunctions.js"></script>    
@@ -161,7 +230,9 @@ end.
     <script src="plugins/ct-navbar.js"></script>
     <script src="scripts/virtualMachine.js"></script>
     <script src="scripts/lexical.js"></script>
+    <script src="scripts/parser.js"></script>
     <script src="scripts/clike.js"></script>
+    <script src="plugins/FileSaver.min.js"></script>
     <!-- endbuild -->
   </body>
 </html>

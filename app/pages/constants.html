@@ -1,0 +1,37 @@
+<h2>Constants, Variables, and Procedures</h2>	
+
+<h3>Constant</h3>
+<div>
+    <p>A constant is identifier that is assigned to a certain number. In the PL/0, if there is a constant that one would like to declare, then it must be equal to some type of number. These constants are useful when an identifier is set to a certain number that will never change and can be used constantly. For example, if one wanted to reuse the number of days in January, then one can declare it in the beginning than reusing 31 throughout the language.</p> 
+    <p>All constants must be declared before it is used. If there is more than one being generated, then a comma must be used to separate each one and a semicolon after the last constant. Also, prior to declaring these constants, the word ‘const’ must be written first so that one knows that the next items are constants declarations.</p> 
+    <p>Here are a few examples of how constants can be declared:</p>
+    <ul>
+        <li>Const fall = 1, winter =2, spring = 3, summer =4;</li> 
+        <li>Const music = 5;</li>
+    </ul>
+    <p>Note: When assigning an identifier to a constant, the symbol ‘=’ is denoted.</p>
+</div> 
+
+<h3>Variable</h3>
+<div>
+    <p>A Variable is also an identifier that is later assigned to a value in the code. Similar to the Constant declaration, if more than one Variable is being declared, they should be separated by a comma, the last Variable that is declared must be followed by a semicolon, and before generating the variables, ‘var’ must be written first.</p> 
+    <p>For instance:</p>
+    <ul>
+        <li>Var x, y, z;</li> 
+        <li>Var w;</li>
+    </ul> 
+</div>
+
+<h3>Procedures</h3>
+<div>
+    <p>A Procedure is like a method or function that have a series of actions that are done in a certain order. Before writing the actions that the Procedure should take, one must first declare the Procedure. A Procedure declaration first starts with the word “procedure” followed by an identifier. Note that unlike the variables and constants, one Procedure must be called at a time. At the end of the Procedure identifier, there should be a semicolon. 
+    After the semicolon is written, a Constant/Variable declaration or statement can be written (statement will be described in the next section) afterwards followed by another semicolon. 
+    Now, one can make use what was learned to generate something similar to the example below:</p>
+    <p style="color: green; margin-left: 5px; ">
+        Const blue = 2, green = 1;
+        Var red, yellow, blue; 
+        procedures colors;;
+        .
+    </p>
+    <p>Side note: Every PL/0 Program must end with a ‘.’.</p>   
+</div>

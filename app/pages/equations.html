@@ -1,0 +1,31 @@
+<h2>Equations: Factor, Term, and Expression</h2>	
+
+<h3>Factor</h3>
+<div>
+    <p>In the PL/0 language, a Factor refers to either an identifier that has been declared (as a constant or variable), number, or an expression is that is between parentheses. This is would be used constantly by other grammar in the PL/0 compiler.</p> 
+</div>
+
+<h3>Term</h3>
+<div>
+    <p>A Term is when a Factor grammar is followed by either a multiplication or division sign and again by another Factor. The best way to describe Term is that it looks like a multiplication or division equation. The math formula does need to have only one multiplication/division sign, it can be followed by a pattern that consists of a multiplication/division sign and a Factor (numerous of times).</p> 
+    <p>For instance, a term can be</p>
+    <ul> 
+        <li>X *2</li>
+        <li>7 / 8</li>
+        <li>Y * 2 / 5 * x * 7 / 1</li>
+    </ul>
+</div>
+
+<h3>Expression</h3>
+<div>
+    <p>In the PL/0, an Expression is equal to what a Term is defined to be; however, it can include an addition or subtraction sign beforehand (if the sign is a subtraction, the PL/0 will consider it as a negation). There can also can be a continuous pattern following Term which includes an addition/subtraction sign and Term.</p> 
+    <p>Some acceptable forms of Expression is as follows:</p>
+    <ul>
+        <li>+ x</li>
+        <li>–y</li>
+        <li>z</li>
+        <li>-(3+5)</li>
+        <li>5 * 8 + 4</li> 
+        <li>-(-(5 + x - y / 8) + 1)</li>
+    <p>At this point, one will be able to generate a type of math formula that involves only subtraction, addition, negation, multiplication, and division signs in PL/0 language.</p> 
+</div>

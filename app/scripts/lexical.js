@@ -4,16 +4,18 @@
 	Febuary 4, 2017
 */
 
-//Constants there were defined in the requirements
+//Constants they were defined in the requirements
 const NUMBER_SIZE = 4; 
 const CHARAC_SIZE = 10; 
 const NUM_ARRAY_SIZE = 6; 
 const CHAR_ARRAY_SIZE = 12; 
 const NUM_TOKEN = 3; 
 var tokens = "#tokens", lexemeTable = "#home"; 
+var lexicalList; 
 
 function main_Lexical()
 {
+	lexicalList = ""; 
 	var array_charact = [CHAR_ARRAY_SIZE];
 	var numbers = [];
 	var temp;
@@ -21,17 +23,17 @@ function main_Lexical()
 	var i, counter = 0;
 	var flag = 0;
 	var text = editor.getValue(); 
-    
+    console.log("Line 25"); 
 	while(text != ""){
 		temp = text.charAt(0);
 		text = text.slice(1, text.length);
-		alert(temp + " line 28\nText: " + text); 
+		console.log("Line 29/t/tTemp = " + temp); 
 		var allowBreak = false; 
 		//checks to see if it is a digit
 		//If so then it will save it into an array
 		if (isdigit(temp)){
 			i = 0;
-			alert("inside digit"); 
+			console.log("Found digit"); 
 			while (!(ispunct(temp)) && !(isspace(temp)) && temp != '\n' && !feof(temp) && !allowBreak){
 				if (i > NUMBER_SIZE){
 					addToConsole("Error: The number is too long!\n");
@@ -48,7 +50,6 @@ function main_Lexical()
 						numbers.push(temp);
 						temp = text.charAt(0);
 						text = text.slice(1, text.length);
-						alert(temp + " line 51\nText: " + text); 
 						i++;
 					}
 				}
@@ -64,17 +65,16 @@ function main_Lexical()
 			}
 			
 			$(lexemeTable).append(numbers.join("") + "\t " + NUM_TOKEN + "\n");
-			$(tokens).append(NUM_TOKEN + " " + numbers.join("") + " ");
+			lexicalList = lexicalList + NUM_TOKEN + " " + numbers.join("") + " ";
 			numbers = []; //bring it back to zero			
 		}
 		//Check to see if the char is a letter
 		//-------------------------------------------------------------------------------------------------
 		else if (isalpha(temp)) {
 			array_charact = []; 
-			alert("Here!!! line 71"); 
+			console.log("Found Alphabet"); 
 			i = 0;
 			while (!(ispunct(temp)) && !(isspace(temp)) && !feof(temp) && temp != '\n' && !allowBreak){
-				alert("Line 75");  
 				if (i > CHARAC_SIZE){
 					addToConsole("Error: The variable name is too long!\n");
 					flag = 1;
@@ -84,7 +84,7 @@ function main_Lexical()
 					array_charact.push(temp);
 					temp = text.charAt(0);
 					text = text.slice(1, text.length);
-					alert("temp is " + temp + "\nText: " + text); 
+					console.log("Line 84/t/tTemp = " + temp); 
 					i++;
 				}
 			}//end of while statement
@@ -98,28 +98,28 @@ function main_Lexical()
 				text = temp + text; 
 			}
 			token = find_token(array_charact);
-			alert("Line 100!!!\nArrayCharacter: " + array_charact);
 			$(lexemeTable).append(array_charact.join("") + "\t " + token + "\n");
 			if (token == 2){
-				$(tokens).append(token + " " + array_charact + " ");
+				lexicalList = lexicalList + token + " " + array_charact.join("") + " ";
 			}
 			else{
-				$(tokens).append(token + " ");
+				lexicalList = lexicalList + token + " ";
 			}
 			array_charact = [];
 		}
 		//Check here for punctuation
 		//--------------------------------------------------------------------------------------------
 		else if (ispunct(temp))	{
-			alert("Line 116"); 
+			console.log("Found Punctuation"); 
 			token = find_symbol(temp);
 			if (token == 0)	{//then the char was ':', therefore it needs to check next symbol to
 				//see whether it is a '='
 				temp = text.charAt(0);
 				text = text.slice(1, text.length);
+				console.log("Line 115/t/tTemp = " + temp); 
 				if (temp == '='){   //20 is the default token for ':='
 					$(lexemeTable).append(":=\t 20\n");
-					$(tokens).append("20 ");
+					lexicalList = lexicalList + "20 ";
 				}
 				else{//bring the cursor back one and state that it was an invalid symbol
 					addToConsole(':' + " is an invalid symbol");
@@ -137,17 +137,17 @@ function main_Lexical()
 				if (temp == '>'){
 					token = 10;
 					$(lexemeTable).append("<>\t " + token + "\n");
-					$(tokens).append(token + " ");
+					lexicalList = lexicalList + token + " ";
 				}
 				else if (temp == '='){
 					token = 12;
 					$(lexemeTable).append("<=\t " + token + "\n");
-					$(tokens).append(token + " ");
+					lexicalList = lexicalList + token + " ";
 				}
 				else{
 					text = temp + text; 
 					$(lexemeTable).append("<\t " + token + "\n");
-					$(tokens).append(token + " ");
+					lexicalList = lexicalList + token + " ";
 				}
 			}
 			else if (token == 13){
@@ -156,12 +156,12 @@ function main_Lexical()
 				if (temp == '='){
 					token = 14;
 					$(lexemeTable).append(">=\t " + token + "\n");
-					$(tokens).append(token + " ");
+					lexicalList = lexicalList + token + " ";
 				}
 				else{
 					text = temp + text; 
 					$(lexemeTable).append("<\t " + token + "\n");
-					$(tokens).append(token + " ");
+					lexicalList = lexicalList + token + " ";
 				}
 			}
 			else if (token == 7){
@@ -185,19 +185,22 @@ function main_Lexical()
 				else{
 					text = temp + text; 
 					$(lexemeTable).append("/\t " + token + "\n");
-					$(tokens).append(token + " ");
+					lexicalList = lexicalList + token + " ";
 				}
 			}
 			else{
 				$(lexemeTable).append(temp + "\t " + token + "\n");
-				$(tokens).append(token + " ");
+				lexicalList = lexicalList + token + " ";
 			}
 			if (flag == 1)//need to break out of the loop since there was an invalid symbol
 				break;
 		}
 		//This is for any white space or next line, etc.
-		else{ alert("Delete later --- white space detected"); }
+		else{ }
 	}
+	$(tokens).append(lexicalList); 
+	//Now Call the Parser
+	//main_Parser(); 
 }
 function find_symbol(symbol)
 {

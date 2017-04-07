@@ -87,3 +87,15 @@ function redo(){
 function trimLeadZero(s) {
     return (""+s).replace(/^0+/, "");
 }
+
+/* Load Tutorial */
+function load_more(fileName) {
+     document.getElementById("addTutorial").innerHTML='<object height="100%" width="100%" type="text/html" data="pages/' + fileName + '.html" ></object>';
+}
+
+/* Save File */
+function saveFile(){
+    var text = document.getElementById('demotext');
+    var blob = new Blob([text.value], {type: "text/plain;charset=utf-8"}); 
+	saveAs(blob, "compilerCode.txt");
+}

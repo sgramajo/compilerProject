@@ -15,5 +15,5 @@ function feof(str){
 }
 
 function ispunct(str){
-    return /[,.?\-:%$^&*()@#!<>{};=]/.test(str);
+    return (/[,.?\-:%$^&*()@#!<>{};=]/.test(str) || str.includes("+") || str.includes("/"));
 }
