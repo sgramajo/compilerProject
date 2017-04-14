@@ -70,13 +70,13 @@ window.onload = function() {
 function restartConsole(){
     /* Console Startup */
     $(consoleResults).empty(); 
-    $(consoleResults).append("<span>\t>>\t</span>"); 
 }
 /* New File */
 function newFile(){
     editor.setValue("");
     editor.clearHistory(); 
     restartConsole(); 
+    clearInnerHTML();
 }
 function goback(){
     editor.undo();
@@ -95,7 +95,6 @@ function load_more(fileName) {
 
 /* Save File */
 function saveFile(){
-    var text = document.getElementById('demotext');
-    var blob = new Blob([text.value], {type: "text/plain;charset=utf-8"}); 
+    var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"}); 
 	saveAs(blob, "compilerCode.txt");
 }

@@ -1,21 +1,17 @@
-/*
-	Stacy Gramajo
-	Homework 2: Lexical Analyzer
-	Febuary 4, 2017
-*/
-
-//Constants they were defined in the requirements
-const NUMBER_SIZE = 4; 
-const CHARAC_SIZE = 10; 
-const NUM_ARRAY_SIZE = 6; 
-const CHAR_ARRAY_SIZE = 12; 
-const NUM_TOKEN = 3; 
 var tokens = "#tokens", lexemeTable = "#home"; 
 var lexicalList; 
 
-function main_Lexical()
-{
+function clearInnerHTML(){
+	document.getElementById("console").innerHTML = "";
+	document.getElementById("results").innerHTML = ""; 	 
+	document.getElementById("tokens").innerHTML = "";
+	document.getElementById("home").innerHTML = "";  
+	document.getElementById("mCode").innerHTML = ""; 
+}
+function main_Lexical(){
+	clearInnerHTML(); 
 	lexicalList = ""; 
+	addToConsole("Starting Lexical Machine"); 
 	var array_charact = [CHAR_ARRAY_SIZE];
 	var numbers = [];
 	var temp;
@@ -23,17 +19,14 @@ function main_Lexical()
 	var i, counter = 0;
 	var flag = 0;
 	var text = editor.getValue(); 
-    console.log("Line 25"); 
 	while(text != ""){
 		temp = text.charAt(0);
 		text = text.slice(1, text.length);
-		console.log("Line 29/t/tTemp = " + temp); 
 		var allowBreak = false; 
 		//checks to see if it is a digit
 		//If so then it will save it into an array
 		if (isdigit(temp)){
 			i = 0;
-			console.log("Found digit"); 
 			while (!(ispunct(temp)) && !(isspace(temp)) && temp != '\n' && !feof(temp) && !allowBreak){
 				if (i > NUMBER_SIZE){
 					addToConsole("Error: The number is too long!\n");
@@ -83,7 +76,6 @@ function main_Lexical()
 					array_charact.push(temp);
 					temp = text.charAt(0);
 					text = text.slice(1, text.length);
-					console.log("Line 84/t/tTemp = " + temp); 
 					i++;
 				}
 			}//end of while statement
@@ -197,6 +189,10 @@ function main_Lexical()
 	}
 	$(tokens).append(lexicalList); 
 	//Now Call the Parser
+	addToConsole("No errors found by the Lexical Machine.");
+	console.log("Lexical Analyzer Machine is complete!\n"); 
+	
+	addToConsole("Starting Syntax Analyzer Machine");  
 	main_Parser(); 
 }
 function find_symbol(symbol)
@@ -312,6 +308,5 @@ function find_token(array_charact)
 	else{
 		token = 2;
 	}
-	console.log("Looking through the strings array is " + tempArray + " and token is "+ token); 
 	return token;
 }//end of find_token function
