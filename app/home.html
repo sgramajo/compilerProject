@@ -74,7 +74,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a href="javascript:void(0)" onclick="startCompiling()">
                             <i class="pe-7s-config"></i>
                             <div>Compile</div>                            
                         </a>
@@ -100,24 +100,9 @@
         <div class="col-md-6 col-sm-12">
         <form style="position: relative; margin-top: .5em;">
             <textarea id="demotext">
-const m = 7, n = 85;
-var  i,x,y,z,q,r;
-procedure mult;
-  var a, b;
-  begin
-     a := x;  b := y; z := 0;   
-     while b > 0 do    
-     begin 
-        if odd x then z := z+a;       
-           a := 2*a; 
-           b := b/2;     
-     end   
-  end;
-
-begin
-  x := m;
-  y := n;
-  call mult;
+var x, y;
+begin	
+  x := y / 56
 end.
             </textarea>
         </form>
@@ -237,6 +222,7 @@ end.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../bower_components/bootstrap/js/tab.js"></script>
     <script src="../bower_components/bootstrap/js/modal.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="scripts/parserHeader.js"></script>
     <script src="scripts/main.js"></script>

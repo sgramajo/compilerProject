@@ -39,6 +39,7 @@ function virtualMain(){
         previous_instruction = nPC;
    }
    addToConsole("Existing Virtual Machine"); 
+   createStack(); 
 }//end of main function
 
 /*
@@ -216,7 +217,7 @@ function execute(){
 
         case 9: //SIO 0,1 --- Write the top stack element to the screen
             console.log("Entered case 9"); 
-            addtoconsole("Element on the top of the stack"); 
+            addToConsole("Element on the top of the stack"); 
             addToConsole(stack[nSP]);
             nSP = Number(nSP) - 1;
             $(idResults).append(previous_instruction + "\t SIO\t " + nIR.l + "\t " + nIR.m + "\t " + nPC + "\t " + nBP + "\t " + nSP + "\t");

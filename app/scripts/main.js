@@ -98,3 +98,51 @@ function saveFile(){
     var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"}); 
 	saveAs(blob, "compilerCode.txt");
 }
+
+var numberOfVariablesInStack;
+/*Create Stack tab */
+function createStack(){
+    var ktemp = 0, numberOfVariablesInStack = 0, stackSentence = ""; 
+    for(ktemp = 0; ktemp < code.length; ktemp++){
+        stackSentence = stackReview(ktemp, code[ktemp].op, code[ktemp].l, code[ktemp].m, stackSentence); 
+    }
+    $("#stackPic").append(stackSentence); 
+}
+
+function stackReview(temp, nOP, nL, nM, sentence){
+    var numberOfValues = 0; 
+    switch(parseInt(nOP)){
+        case 7:
+            console.log("stackReview() case is 7"); 
+            sentence = "</table></div>" + sentence; 
+            if(temp != 0){ 
+                sentence = "<tr style='border: 1px solid black; margin: 5px;'><td>Static Link</td></tr>" + sentence; 
+                sentence = "<tr style='border: 1px solid black; margin: 5px;'><td>Dynamic Link</td></tr>" + sentence;                 
+                sentence = "<tr style='border: 1px solid black; margin: 5px;'><td>Return Address</td></tr>" + sentence;
+                numberOfValues =  code[nM].m - 4 - numberOfVariablesInStack; 
+                numberOfVariablesInStack += numberOfValues; 
+            }
+            else {
+                numberOfValues = code[nM].m - 4;
+                numberOfVariablesInStack = numberOfValues;  
+            }
+
+            for(var i = 0; i < numberOfValues; i++){
+                sentence = "<tr style='border: 1px solid black; margin: 5px;'><td>Local Value</td></tr>" + sentence;
+            }
+            if(temp !=0){
+                var n = lexicalList.indexOf("30 2 ");
+                lexicalList = lexicalList.slice(n+5, lexicalList.length); 
+                n = lexicalList.indexOf(" ");
+                var nameOfProcedure = lexicalList.slice(0, n); 
+                sentence = "<div class='col-sm-3'><p>" + nameOfProcedure + " Proc</p><table style='border: 1px solid black'>" + 
+                            "<tr style='border: 1px solid black; margin: 5px;'><td>Functional Value</td></tr>" + sentence;
+            }else
+                sentence = "<div class='col-sm-3'><p>Main</p><table style='border: 1px solid black'>" + sentence;
+            break;
+
+        default:
+            break;
+        }
+        return sentence; 
+}

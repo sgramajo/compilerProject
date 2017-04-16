@@ -1,8 +1,15 @@
 var tokens = "#tokens", lexemeTable = "#home"; 
 var lexicalList; 
+var compileOnly = 0; 
+
+function startCompiling(){
+	compileOnly = 1; 
+	main_Lexical(); 
+}
 
 function clearInnerHTML(){
 	document.getElementById("console").innerHTML = "";
+	document.getElementById("stackPic").innerHTML = "";
 	document.getElementById("results").innerHTML = ""; 	 
 	document.getElementById("tokens").innerHTML = "";
 	document.getElementById("home").innerHTML = "";  

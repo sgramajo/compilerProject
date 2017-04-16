@@ -19,11 +19,16 @@ function main_Parser(){
 	createArrays(); 
 	program();
 	addToConsole("Finished Syntax Analyzer Machine\n"); 	
-	if(numberOfErrors == 0){
+	if(numberOfErrors == 0 && compileOnly == 0){
 		printCode(); 
 		addToConsole("No errors, program is syntactically correct.\n");
 		virtualMain();
 	} 
+	else if (numberOfErrors == 0 && compileOnly == 1){
+		printCode(); 
+		addToConsole("No errors, program is syntactically correct.\n");
+	}
+	compileOnly = 0; 
 }//end of main function
 
 function createArrays(){
@@ -62,7 +67,7 @@ function checkArray(array){
 function test(array1, array2, errorString){
 	var inArray = checkArray(array1) || checkArray(array2);
 	if(!inArray){
-		error(errorString);
+		//error(errorString);
 		do{
 			get_token(); 
 			inArray = checkArray(array1) || checkArray(array2);
