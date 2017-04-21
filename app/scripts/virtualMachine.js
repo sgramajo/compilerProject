@@ -226,8 +226,8 @@ function execute(){
 
         case 10: //SIO 0, 2 --- Read in input from the user and store it at the top of the stack
             nSP= Number(nSP) + 1;
-            addToConsole("Type number to put in top of the stack ..."); 
-            stack[nSP] = 4; //change for later
+            stack[nSP] = Math.floor((Math.random() * 10) + 1); 
+            addToConsole("The random number to be placed in top of the stack is " + stack[nSP]); 
             $(idResults).append(previous_instruction + "\t SIO\t " + nIR.l + "\t " + nIR.m + "\t " + nPC + "\t " + nBP + "\t " + nSP + "\t");
             print_operation();
             break;

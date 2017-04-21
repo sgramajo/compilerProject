@@ -20,7 +20,8 @@ window.onload = function() {
         }
         reader.readAsText(file);	
     });
-
+    
+   
     /* Add Text */
     $("#addText").keydown(function(evt) {
 		if(evt.keyCode == 13){
@@ -74,7 +75,6 @@ function restartConsole(){
 /* New File */
 function newFile(){
     editor.setValue("");
-    editor.clearHistory(); 
     restartConsole(); 
     clearInnerHTML();
 }
